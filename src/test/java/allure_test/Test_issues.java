@@ -14,7 +14,7 @@ public class Test_issues {
     private static final String BASE_URL = "https://github.com";
     private static final String REPOSITORY = "FIRSTQWERT/simple_form_test";
     private static final int ISSUE_NUMBER = 1;
-    private Steps steps = new Steps();
+    private final Steps steps = new Steps();
 
     @Test
     public void testIssueSelenide() {
@@ -22,26 +22,20 @@ public class Test_issues {
         $(".header-search-input").click();
         $(".header-search-input").sendKeys(REPOSITORY);
         $(".header-search-input").submit();
-        $(By.linkText("FIRSTQWERT/simple_form_test")).click();
+        $(By.linkText(REPOSITORY)).click();
         $(withText("Issues")).click();
         $(withText("#" + ISSUE_NUMBER)).should(Condition.exist);
     }
     @Test
     public void testLambdaSteps() {
-        step("Открываем главную страницу", () -> {
-            open(BASE_URL);
-        });
+        step("Открываем главную страницу", () -> open(BASE_URL));
         step("Ищем репозиторий", () -> {
             $(".header-search-input").click();
             $(".header-search-input").sendKeys(REPOSITORY);
             $(".header-search-input").submit();
         });
-        step("Переходим в репозиторий", () -> {
-            $(By.linkText("FIRSTQWERT/simple_form_test")).click();
-        });
-        step("Открываем таб Issues в репозитории", () -> {
-            $(withText("Issues")).click();
-        });
+        step("Переходим в репозиторий", () -> $(By.linkText(REPOSITORY)).click());
+        step("Открываем таб Issues в репозитории", () -> $(withText("Issues")).click());
         step("Проверяем что Issue с номером 1 существует", () -> {
             $(withText("#" + ISSUE_NUMBER)).should(Condition.exist);
         });
