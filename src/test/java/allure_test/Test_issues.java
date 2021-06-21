@@ -22,9 +22,10 @@ public class Test_issues {
         $(".header-search-input").click();
         $(".header-search-input").sendKeys(REPOSITORY);
         $(".header-search-input").submit();
+        //$(".header-search-input").setValue(REPOSITORY).submit();
         $(By.linkText(REPOSITORY)).click();
         $(withText("Issues")).click();
-        $(withText("#" + ISSUE_NUMBER)).should(Condition.exist);
+        $(withText("#" + ISSUE_NUMBER)).should(Condition.visible);
     }
     @Test
     public void testLambdaSteps() {
@@ -37,7 +38,7 @@ public class Test_issues {
         step("Переходим в репозиторий", () -> $(By.linkText(REPOSITORY)).click());
         step("Открываем таб Issues в репозитории", () -> $(withText("Issues")).click());
         step("Проверяем что Issue с номером 1 существует", () -> {
-            $(withText("#" + ISSUE_NUMBER)).should(Condition.exist);
+            $(withText("#" + ISSUE_NUMBER)).should(Condition.visible);
         });
     }
     @Test
